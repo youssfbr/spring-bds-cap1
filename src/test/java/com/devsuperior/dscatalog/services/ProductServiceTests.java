@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import com.devsuperior.dscatalog.repositories.ProductRepository;
+import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,6 +46,16 @@ class ProductServiceTests {
 
         verify(repository).deleteById(existingId);
         verify(repository, times(1)).deleteById(existingId);
+    }
+
+    @Test
+    void deleteShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist() {
+
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+                service.delete(nonExistingId);
+                });
+
+        verify(repository, times(1)).deleteById(nonExistingId);
     }
 
 }
