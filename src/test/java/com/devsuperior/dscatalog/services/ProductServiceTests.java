@@ -78,6 +78,16 @@ class ProductServiceTests {
         final ProductDTO result = service.findById(existingId);
 
         Assertions.assertNotNull(result);
+
+        verify(repository).findById(existingId);
+    }
+
+    @Test
+    void findByIdShouldThrowResourceNotFoundExceptionWhenIdDoesExist() {
+
+        Assertions.assertThrows(ResourceNotFoundException.class, () -> service.findById(nonExistingId));
+
+        verify(repository).findById(nonExistingId);
     }
 
     @Test
