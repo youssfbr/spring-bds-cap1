@@ -73,6 +73,14 @@ class ProductServiceTests {
     }
 
     @Test
+    void findByIdShouldReturnProductDTOWhenIdExists() {
+
+        final ProductDTO result = service.findById(existingId);
+
+        Assertions.assertNotNull(result);
+    }
+
+    @Test
     void deleteShouldDoNothingWhenIdExists() {
 
         Assertions.assertDoesNotThrow(() -> service.delete(existingId));
